@@ -78,7 +78,6 @@ addForm.addEventListener("submit",(e)=>{
 function calculateProfit(chances, baseProfit) {
     let profit = baseProfit * Math.pow(1.122, chances);
     profit = profit.toFixed(3);
-    ole.log(profit);
     mutipliedMoney = profit / baseProfit;
     mutipliedMoney = mutipliedMoney.toFixed(2);
     mutiplied.innerText = mutipliedMoney;
@@ -87,7 +86,6 @@ function calculateProfit(chances, baseProfit) {
 }
 function checkBetAmount() {
     betAmount = Number(inputField.value);
-    ole.log(betAmount);
     previousInputValue = inputField.value;
     inputField.addEventListener("input", function() {
         if (isNaN(inputField.value)) {
