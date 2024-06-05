@@ -55,7 +55,7 @@ amt.addEventListener("input", function() {
     if (isNaN(inputField.value)) {
         inputField.value = previousInputValue;
     } else {
-        betAmount = Number(inputField.value); // Update betAmount if a new number is entered
+        betAmount = Number(inputField.value);
     }
 });
 addForm.addEventListener("submit",(e)=>{
@@ -86,7 +86,7 @@ function calculateProfit(chances, baseProfit) {
     mutipliedMoney = mutipliedMoney.toFixed(2);
     mutiplied.innerText = mutipliedMoney;
     gained.innerText = "$" + profit;
-    manageMoney(profit); // Pass profit to manageMoney function
+    manageMoney(profit);  
 }
 function checkBetAmount() {
     betAmount = Number(inputField.value);
@@ -96,7 +96,7 @@ function checkBetAmount() {
         if (isNaN(inputField.value)) {
             inputField.value = previousInputValue;
         } else {
-            betAmount = Number(inputField.value); // Update betAmount if a new number is entered
+            betAmount = Number(inputField.value);  
         }
         console.log(betAmount);
     });
@@ -125,7 +125,6 @@ function plotMine() {
         m.addEventListener("click", (dets) => {
             console.log(totalProfitMultiply);
             let target = dets.target;
-            // Check if the element already exists in the arr array
             if (!arr.includes(target)) {
                 arr.push(target);
             }
@@ -133,7 +132,6 @@ function plotMine() {
             if (rn1 == mine||rn2 == mine||rn3 == mine) {
                 m.style.backgroundImage = "url('bomb.png')";
                 blast()
-                // Subtract bet amount from wallet money when player loses
                 let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
                 let updatedWalletMoney = (currentWalletMoney - betAmount).toFixed(3);
                 if (updatedWalletMoney < 0) {
@@ -142,7 +140,7 @@ function plotMine() {
                     return; 
                 }
                 localStorage.setItem('walletMoney', updatedWalletMoney);
-                totalMoney.innerText = updatedWalletMoney; // Update UI with new wallet money
+                totalMoney.innerText = updatedWalletMoney;  
                 looseModel.style.scale = 1;
                 overlay.style.display = "block";
             }
@@ -159,8 +157,6 @@ function plotMine() {
 function scaling(){
     document.querySelectorAll(".mine").forEach(m=>{
         m.addEventListener("click",()=>{
-            // m.style.animation = 'none';
-            // m.offsetHeight; 
             m.style.animation = `anime 0.4s ease-in-out 1 forwards`;
         })
     })
@@ -170,7 +166,7 @@ function workingBtn() {
     if (plotmineWork) {
         btn.addEventListener("click", () => {
             if (winModel.style.scale === "1" || looseModel.style.scale === "1") {
-                return; // Do nothing if winModel or looseModel has a scale of 1
+                return; 
             }
 
             if (flag == 0) {
@@ -198,7 +194,6 @@ function workingBtn() {
 
                 let updatedWalletMoney = (currentWalletMoney - betAmount).toFixed(3);
                 if (updatedWalletMoney < 0) {
-                    // Ensure wallet money doesn't go negative
                     lowMoney.style.top = "10%";
                     console.log("Not enough money");
                     close.addEventListener("click", () => {
@@ -208,8 +203,8 @@ function workingBtn() {
                     return;
                 }
 
-                localStorage.setItem('walletMoney', updatedWalletMoney);
-                totalMoney.innerText = updatedWalletMoney; // Update UI with new wallet money
+                localStorage.setItem('walletMoney', updatedWalletMoney); 
+                totalMoney.innerText = updatedWalletMoney;   
 
                 btn_bomb.innerHTML = `
                 <p>Bet</p>
@@ -232,10 +227,10 @@ function reset(){
     })
 }
 function manageMoney(profit) {
-    let currentMoney = Number(totalMoney.innerText); // Get current money
-    let newMoney = currentMoney + Number(profit); // Add profit to current money
-    totalMoney.innerText = newMoney; // Update the total money displayed
-    localStorage.setItem('walletMoney', newMoney); // Store the updated money in localStorage
+    let currentMoney = Number(totalMoney.innerText);   
+    let newMoney = currentMoney + Number(profit); 
+    totalMoney.innerText = newMoney; 
+    localStorage.setItem('walletMoney', newMoney); 
 }
 function addmodel(){
     bigOverlay.style.display = "block";

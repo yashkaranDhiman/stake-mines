@@ -6,10 +6,10 @@
 }
 body{
     overflow: hidden;
-    -webkit-user-select: none; /* Disable selection for Chrome, Safari, and Opera */
-    -moz-user-select: none; /* Disable selection for Firefox */
-    -ms-user-select: none; /* Disable selection for Internet Explorer/Edge */
-    user-select: none; /* Disable selection for supported browsers */
+    -webkit-user-select: none;  
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
     background-color: #0F2236;
 }
 main{
@@ -19,7 +19,6 @@ main{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* padding: 0 3vw; */
 }
 
 #container{
@@ -40,7 +39,6 @@ main{
     cursor: pointer;
     transition: all 0.1s ease-in;
     background-color: #20384B;
-    /* animation: anime 0.5s ease 1 forwards; */
 }
 .mine:hover{
     scale: 1.06;
@@ -157,7 +155,6 @@ main{
     color: white;
     font-size: 1vw;
     display: flex;
-    /* background-color: red; */
     flex-direction: column;
     padding: 0 1.5vw;
 }
@@ -397,14 +394,13 @@ main{
 }
 #footer a{
     text-decoration: none;
-    /* animation: shake 0.5s ease-out 1 forwards; */
 }
-/* @media screen and (max-width: 1400px) {
+@media screen and (max-width: 1400px) {
     #big-overlay{
         display: block;
         background-color: black;
     }
-} */
+}
 
 @keyframes anime {
     0%{
