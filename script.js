@@ -40,7 +40,7 @@ close.addEventListener("click", () => {
     location.reload()
 });
 if(localStorage.getItem("walletMoney")){
-    console.log("object");  
+
 }
 else{
     localStorage.setItem("walletMoney","1000");
@@ -50,7 +50,6 @@ document.querySelector(".cross").addEventListener("click",()=>{
     bigOverlay.style.display = "none";
 })
 amt.addEventListener("input", function() {
-    console.log(amt.value);
     previousInputValue = inputField.value;
     if (isNaN(inputField.value)) {
         inputField.value = previousInputValue;
@@ -63,7 +62,6 @@ addForm.addEventListener("submit",(e)=>{
     if(secret.value == "99"){
         let current = Number(localStorage.getItem("walletMoney"));
         let updated = current+Number(amt.value);
-        console.log(updated);
         localStorage.setItem("walletMoney",updated)
         location.reload()
     }
@@ -74,14 +72,13 @@ addForm.addEventListener("submit",(e)=>{
             bigOverlay.style.display = "none"  
             WrongPaddMssg.style.top = -10+"%"
         },5000);
-        console.log("wrong pass");
     }
 })
 
 function calculateProfit(chances, baseProfit) {
     let profit = baseProfit * Math.pow(1.122, chances);
     profit = profit.toFixed(3);
-    console.log(profit);
+    ole.log(profit);
     mutipliedMoney = profit / baseProfit;
     mutipliedMoney = mutipliedMoney.toFixed(2);
     mutiplied.innerText = mutipliedMoney;
@@ -90,7 +87,7 @@ function calculateProfit(chances, baseProfit) {
 }
 function checkBetAmount() {
     betAmount = Number(inputField.value);
-    console.log(betAmount);
+    ole.log(betAmount);
     previousInputValue = inputField.value;
     inputField.addEventListener("input", function() {
         if (isNaN(inputField.value)) {
@@ -98,7 +95,6 @@ function checkBetAmount() {
         } else {
             betAmount = Number(inputField.value);  
         }
-        console.log(betAmount);
     });
 }
 function makeSpaces(){
@@ -119,11 +115,9 @@ function plotMine() {
         rn2 = Math.floor(Math.random() * 25) + 1;
         rn3 = Math.floor(Math.random() * 25) + 1;
     } while (rn1 === rn2 || rn1 === rn3 || rn2 === rn3);
-    console.log(rn1,rn2,rn3);
 
     allMines.forEach(m => {
         m.addEventListener("click", (dets) => {
-            console.log(totalProfitMultiply);
             let target = dets.target;
             if (!arr.includes(target)) {
                 arr.push(target);
@@ -195,7 +189,6 @@ function workingBtn() {
                 let updatedWalletMoney = (currentWalletMoney - betAmount).toFixed(3);
                 if (updatedWalletMoney < 0) {
                     lowMoney.style.top = "10%";
-                    console.log("Not enough money");
                     close.addEventListener("click", () => {
                         lowMoney.style.top = "-20%";
                         
