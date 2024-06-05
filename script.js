@@ -1,7 +1,9 @@
 let container = document.getElementById("container");
+let body = document.body;
+let explosionSound = document.getElementById("explosion");
 let secret = document.getElementById("secret");
 let addForm = document.getElementById("add-form");
-let addModel = document.getElementById("add-model");
+let AddModel = document.getElementById("add-model");
 let totalProfit= document.getElementById("total-profit");
 let WrongPaddMssg = document.getElementById("wrong-passcode-message");
 let totalProfitMultiply= document.querySelector("#total-profit h2");
@@ -32,6 +34,8 @@ let previousInputValue = '';
 let mutipliedMoney;
 let rn1,rn2,rn3;
 
+
+
 close.addEventListener("click", () => {
     location.reload()
 });
@@ -42,7 +46,7 @@ else{
     localStorage.setItem("walletMoney","1000");
 }
 document.querySelector(".cross").addEventListener("click",()=>{
-    addModel.style.display = "none"
+    AddModel.style.scale = "0"
     bigOverlay.style.display = "none";
 })
 amt.addEventListener("input", function() {
@@ -61,10 +65,15 @@ addForm.addEventListener("submit",(e)=>{
         let updated = current+Number(amt.value);
         console.log(updated);
         localStorage.setItem("walletMoney",updated)
+        location.reload()
     }
     else{
         WrongPaddMssg.style.top = 10+"%"
         bigOverlay.style.display = "block"
+        setTimeout(()=>{
+            bigOverlay.style.display = "none"  
+            WrongPaddMssg.style.top = -10+"%"
+        },5000);
         console.log("wrong pass");
     }
 })
@@ -92,8 +101,6 @@ function checkBetAmount() {
         console.log(betAmount);
     });
 }
-
-
 function makeSpaces(){
     let clutter = "";
     for (let i = 0; i < 25; i++) {
@@ -125,24 +132,38 @@ function plotMine() {
             let mine = Number(target.getAttribute("data-number"));
             if (rn1 == mine||rn2 == mine||rn3 == mine) {
                 m.style.backgroundImage = "url('bomb.png')";
+                blast()
                 // Subtract bet amount from wallet money when player loses
                 let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
                 let updatedWalletMoney = (currentWalletMoney - betAmount).toFixed(3);
                 if (updatedWalletMoney < 0) {
                     bigOverlay.style.display = "block";
                     lowMoney.style.top = 10+"%"
-                    return; // Do nothing if not enough money
+                    return; 
                 }
                 localStorage.setItem('walletMoney', updatedWalletMoney);
                 totalMoney.innerText = updatedWalletMoney; // Update UI with new wallet money
                 looseModel.style.scale = 1;
                 overlay.style.display = "block";
-            } else {
-                m.style.backgroundImage = "url('diamond.png')";
+            }
+            else{
+                setTimeout(()=>{
+                    m.style.backgroundImage = "url('gem.png')";
+                    m.style.backgroundColor = "#06182";
+                },250)
             }
             totalProfitMultiply.innerText = mutipliedMoney;
         });
     });
+}
+function scaling(){
+    document.querySelectorAll(".mine").forEach(m=>{
+        m.addEventListener("click",()=>{
+            // m.style.animation = 'none';
+            // m.offsetHeight; 
+            m.style.animation = `anime 0.4s ease-in-out 1 forwards`;
+        })
+    })
 }
 
 function workingBtn() {
@@ -157,6 +178,7 @@ function workingBtn() {
                 btn_bomb.innerHTML = `<img src="btn.png" alt="">`;
                 flag = 1;
                 plotMine();
+                scaling();
                 lootOverlay.style.display = "block";
                 let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
                 if (betAmount > currentWalletMoney || betAmount == 0    ) {
@@ -168,8 +190,8 @@ function workingBtn() {
                 totalProfit.style.display = "none";
                 let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
                 if (betAmount > currentWalletMoney) {
-                    lowMoney.style.top = "10%";
                     bigOverlay.style.display = "block";
+                    lowMoney.style.top = "10%";
                     return; 
                 }
 
@@ -181,8 +203,9 @@ function workingBtn() {
                     console.log("Not enough money");
                     close.addEventListener("click", () => {
                         lowMoney.style.top = "-20%";
+                        
                     });
-                    return; // Do nothing if not enough money
+                    return;
                 }
 
                 localStorage.setItem('walletMoney', updatedWalletMoney);
@@ -203,37 +226,27 @@ function workingBtn() {
         });
     }
 }
-
-
 function reset(){
     (overlay).addEventListener("click",()=>{
         location.reload()
     })
-    
 }
-
-
 function manageMoney(profit) {
     let currentMoney = Number(totalMoney.innerText); // Get current money
     let newMoney = currentMoney + Number(profit); // Add profit to current money
     totalMoney.innerText = newMoney; // Update the total money displayed
     localStorage.setItem('walletMoney', newMoney); // Store the updated money in localStorage
 }
-
 function addmodel(){
     bigOverlay.style.display = "block";
-    addModel.style.display = "block";
-
+    AddModel.style.scale = "1";
+}
+function blast(){
+    body.style.animation = "shake 0.7s ease-out 1 forwards "
+    explosionSound.play();
 }
 
 makeSpaces();
 workingBtn();
 reset();
 checkBetAmount()
-// plotMine();
-
-
-
-// let chances = arr.length;
-// let baseProfit = 1;
-// let total_profit = calculateProfit(chances,baseProfit);

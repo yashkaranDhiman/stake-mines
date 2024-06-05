@@ -40,9 +40,11 @@ main{
     cursor: pointer;
     transition: all 0.1s ease-in;
     background-color: #20384B;
+    /* animation: anime 0.5s ease 1 forwards; */
 }
 .mine:hover{
     scale: 1.06;
+    transform: translateY(-5px);
     background-color: #425C78;
 }
 .close{
@@ -318,22 +320,7 @@ main{
     border: 1px solid #dadada;
     border-radius: 5px;
 }
-#add-model{
-    width: 70%;
-    height: 70%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    position: absolute;
-    background-color: white;
-    z-index: 9999999999;
-    /* display: none; */
-    border-radius: 8px;
-    gap: 4vw;
-    padding: 3vw;
-    display: none;
-    flex-direction: column;
-}
+
 #add-model label{
     font-size: 3vw;
 }
@@ -365,6 +352,21 @@ main{
     border: none;
     cursor: pointer;
 }
+#add-model{
+    width: 70%;
+    height: 70%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+    background-color: white;
+    z-index: 9999999999;
+    border-radius: 8px;
+    padding: 3vw;
+    flex-direction: column;
+    transition: all ease-in 0.3s;
+    scale: 0;
+}
 #add-model .cross{
     background-color: black;
     color: white;
@@ -393,9 +395,79 @@ main{
     font-weight: 200;
     
 }
-@media screen and (max-width: 1400px) {
+#footer a{
+    text-decoration: none;
+    /* animation: shake 0.5s ease-out 1 forwards; */
+}
+/* @media screen and (max-width: 1400px) {
     #big-overlay{
         display: block;
         background-color: black;
+    }
+} */
+
+@keyframes anime {
+    0%{
+        opacity: 1;
+        scale: 1.1;
+    }
+    30%{
+        opacity: 1;
+        scale: 1.15;
+    }
+    70%{
+        scale: 0.1;
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        scale: 1;
+    }
+}
+@keyframes shake {
+    0% {
+        transform: translate(0,0);
+    }
+    10% {
+        transform: translate(7px,5px);
+        background-color: rgba(255, 0, 0, 0.479);
+        filter: contrast(200%) blur(3px);
+    }
+    20% {
+        transform: translate(-7px,6px);
+        filter: contrast(-50%) blur(10px);
+        background-color: rgba(255, 0, 0, 0.568);
+    }
+    35% {
+        transform: translate(6px,-7px);
+        background-color: rgba(255, 0, 0, 0.973);
+        filter: contrast(100%) blur(3px);
+    }
+    50% {
+        transform: translate(0,0);
+        background-color: rgba(255, 0, 0, 0.068);
+        filter: contrast(100%) blur(15px);
+    }
+    60% {
+        transform: translate(-4px,8px);
+        background-color: rgba(255, 0, 0, 0.973);
+        filter: contrast(100%) blur(10px);
+    }
+    70% {
+        transform: translate(7px,5px);
+        background-color: rgba(255, 0, 0, 0.493);
+        filter: contrast(100%) blur(5px);
+    }
+    80% {
+        transform: translate(-7px,6px);
+        background-color: rgba(255, 0, 0, 0.308);
+        filter: contrast(100%) blur(3px);
+    }
+    90% {
+        transform: translate(6px,-7px);
+        background-color: rgba(255, 0, 0, 0.904);
+    }
+    100% {
+        transform: translate(0,0);
     }
 }

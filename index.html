@@ -12,6 +12,7 @@
 </head>
 <body>
     <main>
+        <audio id="explosion" src="explosion.mp3"></audio>
         <div id="big-overlay"></div>
         <div id="add-model">
                 <i class="ri-close-line cross" ></i>
@@ -19,6 +20,8 @@
                     <div class="divs">
                         <label for="amt">Amount</label>
                         <input type="number" name="amt" id="amt" placeholder="$69">
+                        <p id="doller-sign">$</p>
+                        
                     </div>
                     <div class="divs">
                         <label for="secret">Secret Code</label>
@@ -65,8 +68,8 @@
                         <legend>$</legend>
                         <p>999.00</p>
                     </div>
-                    <!-- <i class="ri-add-line" onclick="addmodel()"></i> -->
-                    <i class="ri-add-line"></i>
+                    <i class="ri-add-line" onclick="addmodel()"></i>
+                    <!-- <i class="ri-add-line"></i> -->
                 </div>
             </div>
             <div id="bet-amount">
@@ -100,7 +103,9 @@
             <!-- <div class="mine"></div> -->
         </div>
         <div id="footer">
+        <a href="verison.html">
             <p>version: 1.0.0</p>
+        </a>
         </div>
     </main>
     <script src="script.js"></script>
