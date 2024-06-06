@@ -199,7 +199,7 @@ main{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: #D5CC64;
+    background-color: #6dbd13;
 }
 #bet-amount h2{
     font-size: 1vw;
@@ -395,10 +395,10 @@ main{
 #footer a{
     text-decoration: none;
 }
-@media screen and (max-width: 1400px) {
-    #big-overlay{
-        display: block;
-        background-color: black;
+@media screen and (max-width: 1450px) {
+    .mine{
+        width: 7.3vw;
+        height: 7.3vw;
     }
 }
 
