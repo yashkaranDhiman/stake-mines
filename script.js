@@ -37,7 +37,7 @@ let previousMineValue = '';
 let mutipliedMoney;
 
 mineForm.addEventListener("input", (e) => {
-    console.log(numberOfMines.value);
+    // console.log(numberOfMines.value);
 });
 
 close.addEventListener("click", () => {
@@ -96,7 +96,6 @@ function calculateProfit(chances, baseProfit,numberOfMines) {
         gained.innerText = "$" + profit.toFixed(3);
     }
     manageMoney(profit);
-    console.log(mutipliedMoney);
 }
 
 
@@ -135,7 +134,6 @@ function plotMine() {
         }
     }
 
-    console.log(mines);
 
     allMines.forEach(m => {
         m.addEventListener("click", (dets) => {
