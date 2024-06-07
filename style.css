@@ -244,7 +244,7 @@ main{
 #mine-main{
     border-radius: 5px;
     background-color: #101F30;
-    padding: 1vw;
+    /* padding: 1vw; */
     color: white;
     border: 1px solid #dadada;
 }
@@ -395,11 +395,52 @@ main{
 #footer a{
     text-decoration: none;
 }
+
+#dropdown{
+    background-color: #101F30;
+    color: #fff;
+    padding: 1vw;
+    width: 100%;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2vw;
+}
 @media screen and (max-width: 1450px) {
     .mine{
         width: 7.3vw;
         height: 7.3vw;
     }
+}
+@media screen and (max-width: 1200px) {
+    .mine{
+        width: 7vw;
+        height: 7vw;
+    }
+    #container,#overlay{
+        height: 70%;
+    }
+}
+@media screen and (max-width: 1000px) {
+    .mine{
+        width: 6.8vw;
+        height: 6.8vw;
+    }
+    #container,#overlay{
+        height: 60%;
+    }
+}
+@media screen and (max-width: 800px) {
+    .mine{
+        width: 6.6vw;
+        height: 6.6vw;
+    }
+    #container,#overlay{
+        height: 50%;
+    }
+}
+@media screen and (max-width: 800px) {
+    
 }
 
 @keyframes anime {
