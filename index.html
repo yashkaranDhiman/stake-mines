@@ -13,6 +13,7 @@
 <body>
     <main>
         <audio id="explosion" src="explosion.mp3"></audio>
+        <audio id="bg" src="bg.mp3"></audio>
         <div id="big-overlay"></div>
         <div id="add-model">
                 <i class="ri-close-line cross" ></i>
@@ -58,6 +59,7 @@
             </div>
         </div>
             <div id="loot">
+                <i id="volumeIcon" class="ri-volume-mute-line volume" ></i>
                 <div id="loot-overlay">
 
                 </div>
@@ -76,9 +78,14 @@
                     <h2>Bet Amount</h2>
                     <div id="bet-main">
                         <div id="amount">
-                            <input type="number" name="money" id="money" value="0.00">                        
+                            <input type="number" name="money" id="money">                        
                             <p id="doller-sign">$</p>
-                        </div>
+                            </div>
+                                <div id="bet-btn">
+                                    <button class="amt-btn" id="half">1/2 x</button>
+                                    <button class="amt-btn" id="double">2 x</button>
+                                    <button class="amt-btn" id="full-wallet">Wallet</button>
+                                </div>
                     </div>
                 </div>
                 <div id="total-mines">

@@ -9,7 +9,10 @@ let AddModel = document.getElementById("add-model");
 let totalProfit= document.getElementById("total-profit");
 let WrongPaddMssg = document.getElementById("wrong-passcode-message");
 let totalProfitMultiply= document.querySelector("#total-profit h2");
+let totalProfitAmnt = document.querySelector("#profit-main h4");
 let bigOverlay = document.getElementById("big-overlay");
+let bgMusic = document.getElementById("bg")
+let volumeIcon = document.getElementById('volumeIcon');
 let lootOverlay = document.getElementById("loot-overlay");
 let btn = document.getElementById("btn");
 let amt = document.getElementById("amt");
@@ -25,27 +28,76 @@ totalMoney.innerText = walletMoney;
 let inputField = document.querySelector("#amount input");
 let gained = document.querySelector("#bottom-win h4");
 let mutiplied = document.querySelector("#top-win h2");
+let half = document.getElementById("half");
+let double = document.getElementById("double");
+let fullWallet = document.getElementById("full-wallet");
 let arr = [];
 let flag = 0;
 let allMines;
 let profit;
 let plotmineWork = true;
+let isMuted = true;
 let betAmount = 0;
+let mineValue = 0;
 let timesProfit = 0;
 let previousInputValue = '';
 let previousMineValue = '';
 let mutipliedMoney;
+let gems,mines,unClicked;
+
+function changeBetAmt(){
+    half.addEventListener("click",()=>{
+        let currentBetAmt = Number(localStorage.getItem("betAmount"));
+        betAmount = (currentBetAmt/2).toFixed(3);
+        inputField.value= betAmount;
+        localStorage.setItem("betAmount",betAmount)
+    })
+    double.addEventListener("click",()=>{
+        let currentBetAmt = Number(localStorage.getItem("betAmount"));
+        betAmount = (currentBetAmt*2).toFixed(3);
+        inputField.value= betAmount;
+        localStorage.setItem("betAmount",betAmount)
+    })
+    fullWallet.addEventListener("click",()=>{
+        let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
+        betAmount = currentWalletMoney;
+        inputField.value = betAmount;
+        localStorage.setItem('betAmount', betAmount);
+    })
+}
 
 mineForm.addEventListener("input", (e) => {
     // console.log(numberOfMines.value);
 });
 
-close.addEventListener("click", () => {
+window.onload = function() {
+    let savedBetAmount = localStorage.getItem('betAmount');
+    if (savedBetAmount !== null) {
+        inputField.value = savedBetAmount;
+        betAmount = Number(savedBetAmount);
+        }
+    let savedNumberOfMines = localStorage.getItem('numberOfMines');
+    if (savedNumberOfMines !== null) {
+        numberOfMines.value = (savedNumberOfMines);
+    }
+}
+
+inputField.addEventListener('input', function() {
+    betAmount = Number(inputField.value);
+    localStorage.setItem('betAmount', betAmount);
+});
+
+numberOfMines.addEventListener('input',()=>{
+
+    localStorage.setItem('numberOfMines', numberOfMines.value);
+})
+
+close.addEventListener("click", (e) => {
     location.reload();
 });
 
 if (!localStorage.getItem("walletMoney")) {
-    localStorage.setItem("walletMoney", "1000");
+    localStorage.setItem("walletMoney", "100");
 }
 
 document.querySelector(".cross").addEventListener("click", () => {
@@ -58,6 +110,9 @@ amt.addEventListener("input", function() {
     if (isNaN(inputField.value)) {
         inputField.value = previousInputValue;
     } else {
+        if(isNaN(inputField.value)){
+            console.log("object");
+        }
         betAmount = Number(inputField.value);
     }
 });
@@ -66,7 +121,7 @@ addForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (secret.value == "99") {
         let current = Number(localStorage.getItem("walletMoney"));
-        let updated = current + Number(amt.value);
+        let updated = current + Math.abs(Number(amt.value));
         localStorage.setItem("walletMoney", updated);
         location.reload();
     } else {
@@ -81,33 +136,20 @@ addForm.addEventListener("submit", (e) => {
 
 
 
-function calculateProfit(chances, baseProfit,numberOfMines) {
-    numberOfMines = Number(numberOfMines.value);
-    let profit = baseProfit* Math.pow(1.137,numberOfMines) * Math.pow(1.137, chances);
-    profit = profit.toFixed(3);
-    mutipliedMoney = profit / baseProfit;
-    mutipliedMoney = mutipliedMoney.toFixed(2);
-    mutiplied.innerText = mutipliedMoney;
-    gained.innerText = "$" + profit;
-    if (chances === 0) {
-        profit = baseProfit;
-        mutipliedMoney = 0;
-        mutiplied.innerText = mutipliedMoney.toFixed(2);
-        gained.innerText = "$" + profit.toFixed(3);
-    }
-    manageMoney(profit);
+
+function getDivWithNumber(number){
+    const div = document.querySelector(`div[data-number='${number}']`);
+    return div;
 }
 
-
-
 function checkBetAmount() {
-    betAmount = Number(inputField.value);
-    previousInputValue = inputField.value;
+    betAmount = Math.abs(Number(inputField.value));
+    previousInputValue = Math.abs(inputField.value);
     inputField.addEventListener("input", function() {
         if (isNaN(inputField.value)) {
             inputField.value = previousInputValue;
         } else {
-            betAmount = Number(inputField.value);
+            betAmount = Math.abs(Number(inputField.value));
         }
     });
 }
@@ -121,58 +163,21 @@ function makeSpaces() {
     allMines = document.querySelectorAll(".mine");
 }
 
-function plotMine() {
-    if (looseModel.style.scale === "1") {
-        return;
+function calculateProfit(chances, baseProfit,numberOfMines) {
+    numberOfMines = Number(numberOfMines.value);
+    let profit = baseProfit* Math.pow(1.14,numberOfMines) * Math.pow(1.07, chances);
+    profit = profit.toFixed(3);
+    mutipliedMoney = profit / baseProfit;
+    mutipliedMoney = mutipliedMoney.toFixed(2);
+    mutiplied.innerText = mutipliedMoney;
+    gained.innerText = "$" + profit;
+    if (chances === 0) {
+        profit = baseProfit;
+        mutipliedMoney = 0;
+        mutiplied.innerText = mutipliedMoney.toFixed(2);
+        gained.innerText = "$" + profit;
     }
-
-    let mines = [];
-    while (mines.length < numberOfMines.value) {
-        let rn = Math.floor(Math.random() * 25) + 1;
-        if (!mines.includes(rn)) {
-            mines.push(rn);
-        }
-    }
-
-
-    allMines.forEach(m => {
-        m.addEventListener("click", (dets) => {
-            let target = dets.target;
-            if (!arr.includes(target)) {
-                arr.push(target);
-            }
-            let mine = Number(target.getAttribute("data-number"));
-            if (mines.includes(mine)) {
-                m.style.backgroundImage = "url('bomb.png')";
-                blast();
-                let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
-                let updatedWalletMoney = (currentWalletMoney - betAmount).toFixed(3);
-                if (updatedWalletMoney < 0) {
-                    bigOverlay.style.display = "block";
-                    lowMoney.style.top = "10%";
-                    return;
-                }
-                localStorage.setItem('walletMoney', updatedWalletMoney);
-                totalMoney.innerText = updatedWalletMoney;
-                looseModel.style.scale = 1;
-                overlay.style.display = "block";
-            } else {
-                setTimeout(() => {
-                    m.style.backgroundImage = "url('gem.png')";
-                    m.style.backgroundColor = "#06182";
-                }, 250);
-            }
-            totalProfitMultiply.innerText = mutipliedMoney;
-        });
-    });
-}
-
-function scaling() {
-    document.querySelectorAll(".mine").forEach(m => {
-        m.addEventListener("click", () => {
-            m.style.animation = `anime 0.4s ease-in-out 1 forwards`;
-        });
-    });
+    manageMoney(profit);
 }
 
 function workingBtn() {
@@ -205,7 +210,7 @@ function workingBtn() {
                     return;
                 }
 
-                let updatedWalletMoney = (currentWalletMoney - betAmount).toFixed(3);
+                let updatedWalletMoney = (currentWalletMoney - Math.abs(betAmount)).toFixed(3);
                 if (updatedWalletMoney < 0) {
                     lowMoney.style.top = "10%";
                     close.addEventListener("click", () => {
@@ -223,12 +228,90 @@ function workingBtn() {
                 plotmineWork = false;
                 lootOverlay.style.display = "none";
                 overlay.style.display = "block";
+                plotLeft()
                 let chances = arr.length;
                 let baseProfit = betAmount;
                 calculateProfit(chances, baseProfit,numberOfMines);
             }
         });
     }
+}
+
+function plotMine() {
+    if (looseModel.style.scale === "1") {
+        return;
+    }
+
+    mines = [];
+    gems = [];
+    while (mines.length < numberOfMines.value) {
+        let rn = Math.floor(Math.random() * 25) + 1;
+        if (!mines.includes(rn)) {
+            mines.push(rn);
+        }
+    }
+    for (let i = 1; i < 26; i++) {
+        if(!mines.includes(i)){
+            gems.push(i);
+        }
+    }
+    // console.log(mines);
+    // console.log(gems);
+    
+    allMines.forEach(m => {
+        m.addEventListener("click", (dets) => {
+
+            let target = dets.target;
+            if (!arr.includes(target)) {
+                arr.push(target);
+            }
+            let mine = Number(target.getAttribute("data-number"));
+            if (mines.includes(mine)) {
+                m.style.backgroundImage = "url('bomb.png')";
+                blast();
+                let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
+                let updatedWalletMoney = (currentWalletMoney - Math.abs(betAmount)).toFixed(3);
+                if (updatedWalletMoney < 0) {
+                    bigOverlay.style.display = "block";
+                    lowMoney.style.top = "10%";
+                    return;
+                }
+                localStorage.setItem('walletMoney', updatedWalletMoney);
+                totalMoney.innerText = updatedWalletMoney;
+                looseModel.style.scale = 1;
+                overlay.style.display = "block";
+
+                plotLeft()
+                
+            } else {
+                setTimeout(() => {
+                    m.style.backgroundImage = "url('gem.png')";
+                    m.style.backgroundColor = "#06182";
+                }, 250);
+            }
+        });
+    });
+}
+
+function scaling() {
+    document.querySelectorAll(".mine").forEach(m => {
+        m.addEventListener("click", () => {
+            m.style.animation = `anime 0.4s ease-in-out 1 forwards`;
+        });
+    });
+}
+
+
+function plotLeft(){
+    
+    gems.forEach(e=>{
+        let specificDiv = getDivWithNumber(e);
+        specificDiv.style.backgroundImage = "url('gem.png')";
+    })
+    mines.forEach(e=>{
+        let specificDiv = getDivWithNumber(e);
+        specificDiv.style.backgroundImage = "url('bomb.png')";
+    })
 }
 
 function reset() {
@@ -252,16 +335,21 @@ function addmodel() {
 function blast() {
     body.style.animation = "shake 0.7s ease-out 1 forwards";
     explosionSound.play();
+    explosionSound.volume  = 0.2
 }
 
 makeSpaces();
 workingBtn();
 reset();
 checkBetAmount();
+changeBetAmt();
 
 // for (let numberOfMines = 1; numberOfMines < 25; numberOfMines++) {
 //     chances = 25-numberOfMines;
-//     let a = Math.pow(1.13696,numberOfMines) * Math.pow(1.13696, chances);
+//     let a = Math.pow(1.14,numberOfMines) * Math.pow(1.07, chances);
+//     // let a = Math.pow(1.13696,numberOfMines)
+//     // let b = Math.pow(a,chances);/
 //     console.log(numberOfMines,"with a profit of",a);
 
 // }
+
