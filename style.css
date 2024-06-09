@@ -340,7 +340,8 @@ main{
 .divs{
     display: flex;
     align-items: center;
-    gap: 2vw;
+    flex-direction: column;
+    gap: 1vw;
 }
 .divs input{
     border-radius: 5px;
@@ -361,7 +362,7 @@ main{
     border-radius: 5px;
     width: 30%;
     outline: none;
-    
+    margin: auto;
     border: none;
     cursor: pointer;
 }
@@ -379,6 +380,11 @@ main{
     flex-direction: column;
     transition: all ease-in 0.3s;
     scale: 0;
+}
+#add-form{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
 }
 #add-model .cross{
     background-color: black;

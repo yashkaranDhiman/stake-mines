@@ -256,7 +256,7 @@ function plotMine() {
         }
     }
     // console.log(mines);
-    // console.log(gems);
+    console.log(gems);
     
     allMines.forEach(m => {
         m.addEventListener("click", (dets) => {
