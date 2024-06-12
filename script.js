@@ -11,7 +11,6 @@ let WrongPaddMssg = document.getElementById("wrong-passcode-message");
 let totalProfitMultiply= document.querySelector("#total-profit h2");
 let totalProfitAmnt = document.querySelector("#profit-main h4");
 let bigOverlay = document.getElementById("big-overlay");
-let bgMusic = document.getElementById("bg")
 let volumeIcon = document.getElementById('volumeIcon');
 let lootOverlay = document.getElementById("loot-overlay");
 let btn = document.getElementById("btn");
@@ -50,19 +49,19 @@ function changeBetAmt(){
         let currentBetAmt = Number(localStorage.getItem("betAmount"));
         betAmount = (currentBetAmt/2).toFixed(3);
         inputField.value= betAmount;
-        localStorage.setItem("betAmount",betAmount)
+        localStorage.setItem("betAmount",Math.abs(betAmount))
     })
     double.addEventListener("click",()=>{
         let currentBetAmt = Number(localStorage.getItem("betAmount"));
         betAmount = (currentBetAmt*2).toFixed(3);
         inputField.value= betAmount;
-        localStorage.setItem("betAmount",betAmount)
+        localStorage.setItem("betAmount",Math.abs(betAmount))
     })
     fullWallet.addEventListener("click",()=>{
         let currentWalletMoney = Number(localStorage.getItem('walletMoney'));
         betAmount = currentWalletMoney;
         inputField.value = betAmount;
-        localStorage.setItem('betAmount', betAmount);
+        localStorage.setItem('betAmount', Math.abs(betAmount));
     })
 }
 
@@ -82,9 +81,13 @@ window.onload = function() {
     }
 }
 
-inputField.addEventListener('input', function() {
+inputField.addEventListener('input', function(e) {
     betAmount = Number(inputField.value);
-    localStorage.setItem('betAmount', betAmount);
+    localStorage.setItem('betAmount',Math.abs(betAmount));
+    if(e.data == "-"){
+        inputField.value = Math.abs(inputField.value);
+    }
+
 });
 
 numberOfMines.addEventListener('input',()=>{
@@ -145,7 +148,7 @@ function getDivWithNumber(number){
 function checkBetAmount() {
     betAmount = Math.abs(Number(inputField.value));
     previousInputValue = Math.abs(inputField.value);
-    inputField.addEventListener("input", function() {
+    inputField.addEventListener("input", function(e) {
         if (isNaN(inputField.value)) {
             inputField.value = previousInputValue;
         } else {
@@ -165,7 +168,7 @@ function makeSpaces() {
 
 function calculateProfit(chances, baseProfit,numberOfMines) {
     numberOfMines = Number(numberOfMines.value);
-    let profit = baseProfit* Math.pow(1.14,numberOfMines) * Math.pow(1.07, chances);
+    let profit = baseProfit*Math.pow(1.9,numberOfMines) * Math.pow(1.07, chances);
     profit = profit.toFixed(3);
     mutipliedMoney = profit / baseProfit;
     mutipliedMoney = mutipliedMoney.toFixed(2);
@@ -189,7 +192,8 @@ function workingBtn() {
 
             if (flag == 0) {
                 totalProfit.style.display = "block";
-                btn_bomb.innerHTML = `<img src="btn.png" alt="">`;
+                // btn_bomb.innerHTML = `<img src="btn.png" alt="">`;
+                btn_bomb.innerText = `CashOut`;
                 flag = 1;
                 plotMine();
                 scaling();
@@ -225,6 +229,9 @@ function workingBtn() {
                 btn_bomb.innerHTML = `<p>Bet</p>`;
                 flag = 0;
                 winModel.style.scale = 1;
+                btn.addEventListener("click",()=>{
+                    location.reload()
+                })
                 plotmineWork = false;
                 lootOverlay.style.display = "none";
                 overlay.style.display = "block";
@@ -280,7 +287,9 @@ function plotMine() {
                 totalMoney.innerText = updatedWalletMoney;
                 looseModel.style.scale = 1;
                 overlay.style.display = "block";
-
+                btn.addEventListener("click",()=>{
+                    location.reload();  
+                })
                 plotLeft()
                 
             } else {
@@ -346,10 +355,9 @@ changeBetAmt();
 
 // for (let numberOfMines = 1; numberOfMines < 25; numberOfMines++) {
 //     chances = 25-numberOfMines;
-//     let a = Math.pow(1.14,numberOfMines) * Math.pow(1.07, chances);
+//     let a = Math.pow(1.9,numberOfMines) * Math.pow(1.07, chances);
 //     // let a = Math.pow(1.13696,numberOfMines)
 //     // let b = Math.pow(a,chances);/
 //     console.log(numberOfMines,"with a profit of",a);
 
 // }
-

@@ -23,19 +23,19 @@ main{
 
 #container{
     width: 41.7%;
-    height: 90%;
+    height: 41.5vw;
     background-color: #101F2F;
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
     padding: 1vw;
 }
 .mine{
-    width: 7.5vw;
+    width: 7.8vw;
+    height: 7.8vw;
     border-radius: 8px;
     background-size: cover; 
     background-position: center;
-    height: 7.5vw;
     cursor: pointer;
     transition: all 0.1s ease-in;
     background-color: #20384B;
@@ -103,7 +103,7 @@ main{
     width: 41.7%;
     z-index: 99999;
     padding: 1vw;
-    height: 90%;
+    height: 41.4vw;
     right: 5%;
     cursor: pointer;
     display: none;
@@ -438,37 +438,83 @@ main{
     cursor: pointer;
     color: #fff;
 }
-@media screen and (max-width: 1450px) {
+@media screen and (max-width: 1550px) {
     .mine{
-        width: 7.3vw;
-        height: 7.3vw;
+        width: 7.7vw;
+        height: 7.7vw;
+    }
+    #container,#overlay{
+        height: 42vw;
+    }
+
+}
+
+@media screen and (max-width: 1300px) {
+    .mine{
+        width: 7.6vw;
+        height: 7.6vw;
+    }
+    #container,#overlay{
+        height: 42vw;
+    }
+    #wallet-main p,#wallet-main legend,#amount input #mine-form select{
+        font-size: 1.4vw;
+    }
+    #loot h2{
+        font-size: 1.6vw;
+    }
+    .amt-btn{
+        font-size: 1.2vw;
+        padding: 1.2vw .6vw;
+    }
+    #loot{
+        height: 80%;
     }
 }
 @media screen and (max-width: 1200px) {
     .mine{
-        width: 7vw;
-        height: 7vw;
+        width: 7.53vw;
+        height: 7.53vw;
     }
     #container,#overlay{
-        height: 70%;
+        height: 44vw;
     }
+
 }
 @media screen and (max-width: 1000px) {
     .mine{
-        width: 6.8vw;
-        height: 6.8vw;
+        width: 8vw;
+        height: 8vw;
     }
     #container,#overlay{
-        height: 60%;
-    }
+        height: 45vw;
+        width: 45%;
+    }   
 }
 @media screen and (max-width: 800px) {
     .mine{
-        width: 6.6vw;
-        height: 6.6vw;
+        width: 7.8vw;
+        height: 7.8vw;
     }
     #container,#overlay{
-        height: 50%;
+        height: 48vw;
+    }
+    #loot{
+        width: 40%;
+        height: 70%;
+    }
+
+    #doller-sign{
+        width: 20px;
+        height: 20px;
+    }
+
+    #loot h2{
+        font-size: 2vw;
+    }
+    #btn{
+        font-size: 2.4vw;
+        margin-top: 1vw;
     }
 }
 @media screen and (max-width: 800px) {
