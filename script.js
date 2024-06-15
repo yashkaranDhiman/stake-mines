@@ -113,9 +113,6 @@ amt.addEventListener("input", function() {
     if (isNaN(inputField.value)) {
         inputField.value = previousInputValue;
     } else {
-        if(isNaN(inputField.value)){
-            console.log("object");
-        }
         betAmount = Number(inputField.value);
     }
 });
@@ -168,7 +165,7 @@ function makeSpaces() {
 
 function calculateProfit(chances, baseProfit,numberOfMines) {
     numberOfMines = Number(numberOfMines.value);
-    let profit = baseProfit*Math.pow(1.9,numberOfMines) * Math.pow(1.07, chances);
+    let profit = baseProfit*Math.pow(1.2,numberOfMines) * Math.pow(1.1, chances);
     profit = profit.toFixed(3);
     mutipliedMoney = profit / baseProfit;
     mutipliedMoney = mutipliedMoney.toFixed(2);
@@ -263,7 +260,7 @@ function plotMine() {
         }
     }
     // console.log(mines);
-    console.log(gems);
+    // console.log(gems);
     
     allMines.forEach(m => {
         m.addEventListener("click", (dets) => {
@@ -355,9 +352,10 @@ changeBetAmt();
 
 // for (let numberOfMines = 1; numberOfMines < 25; numberOfMines++) {
 //     chances = 25-numberOfMines;
-//     let a = Math.pow(1.9,numberOfMines) * Math.pow(1.07, chances);
+//     let a = Math.pow(1.2,numberOfMines) * Math.pow(1.1, chances);
 //     // let a = Math.pow(1.13696,numberOfMines)
 //     // let b = Math.pow(a,chances);/
 //     console.log(numberOfMines,"with a profit of",a);
 
 // }
+
